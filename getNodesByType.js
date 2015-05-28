@@ -1,4 +1,4 @@
-﻿/*global document*/
+/*global document*/
 //a function to get DOM nodes by nodeType property.
 //If you do not supply a value I will give you every DOM node.
 //
@@ -86,14 +86,24 @@
             return (function () {
                 var output = [],
                     child  = function (x) {
-                        var a = x.childNodes,
-                            b = a.length,
-                            c = 0;
+                        var atty = [],
+                            a    = x.childNodes,
+                            b    = a.length,
+                            c    = 0,
+                            d    = 0,
+                            e    = 0;
                         for (c = 0; c < b; c += 1) {
                             if (a[c].nodeType === types || types === 0) {
                                 output.push(a[c]);
                             }
                             if (a[c].nodeType === 1) {
+                                if (types === 2 || types === 0) {
+                                    atty = a[c].attributes;
+                                    d    = atty.length;
+                                    for (e = 0; e < d; e += 1) {
+                                        output.push(atty[e]);
+                                    }
+                                }
                                 child(a[c]);
                             }
                         }
