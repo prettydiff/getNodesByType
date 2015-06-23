@@ -33,7 +33,9 @@
             var types     = 0,
                 valueTest = (typeof typeValue === "string") ? typeValue.toUpperCase() : "",
                 root      = this;
-            typeValue = typeValue.toLowerCase();
+            if (typeof typeValue === "string") {
+                typeValue = typeValue.toLowerCase();
+            }
             if (typeValue === "all") {
                 types = 0;
             } else if (typeValue === "element_node") {
