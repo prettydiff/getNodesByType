@@ -6,7 +6,7 @@
     "url": "http://prettydiff.com/"
   },
   "bin": "./bin/getNodesByType",
-  "version": "1.15.7",
+  "version": "1.0.0",
   "description": "Get any node in the DOM faster and more precise than using a querySelector.",
   "keywords": [
     "dom",
