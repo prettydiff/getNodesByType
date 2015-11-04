@@ -141,24 +141,17 @@
 
     if (typeof exports === "object" || typeof exports === "function") {
         //commonjs and nodejs support
-        exports.jsxstatus = global.jsxstatus;
-        exports.api       = function commonjs(x) {
-            "use strict";
-            return jspretty(x);
-        };
+        exports.getNodesByType = getNodesByType;
     } else if (typeof define === "object" || typeof define === "function") {
         //requirejs support
         define(function requirejs(require, exports) {
             "use strict";
-            exports.jsxstatus = global.jsxstatus;
-            exports.api       = function requirejs_export(x) {
-                return jspretty(x);
-            };
+            exports.getNodesByType = getNodesByType;
             //worthless if block to appease RequireJS and JSLint
             if (typeof require === "number") {
                 return require;
             }
-            return exports.api;
+            return exports.getNodesByType;
         });
     }
 }());
