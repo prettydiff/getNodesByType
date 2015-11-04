@@ -1,0 +1,37 @@
+﻿{
+  "name": "getNodesByType",
+  "author": {
+    "name": "Austin Cheney",
+    "email": "info@prettydiff.com",
+    "url": "http://prettydiff.com/"
+  },
+  "bin": "./bin/getNodesByType",
+  "version": "1.15.7",
+  "description": "Get any node in the DOM faster and more precise than using a querySelector.",
+  "keywords": [
+    "dom",
+    "walk",
+    "html",
+    "xml",
+    "element",
+    "attribute",
+    "comment"
+  ],
+  "homepage": "http://prettydiff.com/",
+  "main": "getNodesByType.js",
+  "bugs": {
+    "url": "https://github.com/prettydiff/getNodesByType/issues",
+    "email": "info@prettydiff.com"
+  },
+  "license": "SEE LICENSE IN license",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/prettydiff/getNodesByType.git"
+  },
+  "maintainers": [
+    {
+      "name": "austincheney",
+      "email": "info@prettydiff.com"
+    }
+  ]
+}
