@@ -1,4 +1,4 @@
-/*global document*/
+/*global define, document, exports*/
 //a function to get DOM nodes by nodeType property.
 //If you do not supply a value I will give you every DOM node.
 //
@@ -138,4 +138,27 @@
 
     // Ensure dynamically created elements get this method too
     Element.prototype.getNodesByType = getNodesByType;
+
+    if (typeof exports === "object" || typeof exports === "function") {
+        //commonjs and nodejs support
+        exports.jsxstatus = global.jsxstatus;
+        exports.api       = function commonjs(x) {
+            "use strict";
+            return jspretty(x);
+        };
+    } else if (typeof define === "object" || typeof define === "function") {
+        //requirejs support
+        define(function requirejs(require, exports) {
+            "use strict";
+            exports.jsxstatus = global.jsxstatus;
+            exports.api       = function requirejs_export(x) {
+                return jspretty(x);
+            };
+            //worthless if block to appease RequireJS and JSLint
+            if (typeof require === "number") {
+                return require;
+            }
+            return exports.api;
+        });
+    }
 }());
