@@ -5,21 +5,21 @@ When the code is run a method `getNodesByType` will be attached to all element n
 
 Execute the method with either a numeric value or a node type name.
 
-    document.getNodesByType(1); // get all element nodes in the document
-    document.getNodesByType("TEXT_NODE"); // get all text nodes in the document
+    document.getNodesByType(1);                          // get all element nodes in the document
+    document.getNodesByType("TEXT_NODE");                // get all text nodes in the document
 
     var item = document.getElementById("item");
-    item.getNodesByType("COMMENT_NODE"); // get all child comment node types
-    item.getNodesByType(1); // get all child element node types
+    item.getNodesByType("COMMENT_NODE");                 // get all child comment node types
+    item.getNodesByType(1);                              // get all child element node types
 
 Updated with a new method: `getElementsByAttribute(name, value)`
 
     document.getElementsByAttribute("class", "segment"); // get all elements with a class attribute of value segment
-    document.getElementsByAttribute("src", ""); // get all elements with a src attribute of any value
+    document.getElementsByAttribute("src", "");          // get all elements with a src attribute of any value
 
     var item = document.getElementById("item");
-    item.getElementsByAttribute("id"); // get all child elements with an id attribute of any value
-    item.getElementsByAttribute("", "purple_alien"); // get all child elements with any attribute whose value is purple_alien
+    item.getElementsByAttribute("id");                   // get all child elements with an id attribute of any value
+    item.getElementsByAttribute("", "purple_alien");     // get all child elements with any attribute whose value is purple_alien
 
 Both the name and value arguments of `getElementsByAttribute` are optional.
 
