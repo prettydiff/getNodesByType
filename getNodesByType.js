@@ -1,4 +1,4 @@
-/*global define, document, exports*/
+/*global document*/
 //a function to get DOM nodes by nodeType property.
 //If you do not supply a value I will give you every DOM node.
 //
@@ -95,63 +95,70 @@
                 var output = [],
                     child  = function getNodesByType_walking_child(x) {
                         var atty = [],
-                            a    = x.childNodes,
+                            a    = x.attributes,
                             b    = a.length,
-                            c    = 0,
-                            d    = 0,
-                            e    = 0;
-                        for (c = 0; c < b; c += 1) {
-                            if (a[c].nodeType === types || types === 0) {
+                            c    = 0;
+                        // Special functionality for attribute types.
+                        if (b > 0 && (types === 2 || types === 0)) {
+                            do {
                                 output.push(a[c]);
-                            }
-                            if (a[c].nodeType === 1) {
-                                // Special functionality for attribute types.
-                                if (types === 2 || types === 0) {
-                                    atty = a[c].attributes;
-                                    d    = atty.length;
-                                    for (e = 0; e < d; e += 1) {
-                                        output.push(atty[e]);
-                                    }
+                                c += 1;
+                            } while (c < b);
+                        }
+                        a = x.childNodes;
+                        b = a.length;
+                        c = 0;
+                        if (b > 0) {
+                            do {
+                                if (a[c].nodeType === types || types === 0) {
+                                    output.push(a[c]);
                                 }
-                                //recursion magic
-                                getNodesByType_walking_child(a[c]);
-                            }
+                                if (a[c].nodeType === 1) {
+                                    //recursion magic
+                                    getNodesByType_walking_child(a[c]);
+                                }
+                                c += 1;
+                            } while (c < b);
                         }
                     };
                 child(root);
                 return output;
             }());
         },
-        el             = [],
-        len            = 0,
-        a              = 0;
+        getElementsByAttribute = function getElementsByAttribute(name, value) {
+            var attrs = this.getNodesByType(2),
+                out   = [];
+            if (typeof name !== "string") {
+                name = "";
+            }
+            if (typeof value !== "string") {
+                value = "";
+            }
+            attrs.forEach(function getElementsByAttribute_loop(item) {
+                if (item.name === name || name === "") {
+                    if (item.value === value || value === "") {
+                        out.push(item.ownerElement);
+                    }
+                }
+            });
+            return out;
+        };
 
     // Create a document method
-    document.getNodesByType = getNodesByType;
+    document.getNodesByType         = getNodesByType;
+    document.getElementsByAttribute = getElementsByAttribute;
 
+    (function addToExistingElements() {
+        var el = document.getNodesByType(1);
+        el.forEach(function addToExistingElements_loop(item) {
+            item.getNodesByType         = getNodesByType;
+            item.getElementsByAttribute = getElementsByAttribute;
+        });
+    }());
     // Add this code as a method onto each DOM element
-    el                      = document.getNodesByType(1);
-    len                     = el.length;
-    for (a = 0; a < len; a += 1) {
-        el[a].getNodesByType = getNodesByType;
-    }
 
     // Ensure dynamically created elements get this method too
-    Element.prototype.getNodesByType = getNodesByType;
+    Element.prototype.getNodesByType         = getNodesByType;
+    Element.prototype.getElementsByAttribute = getElementsByAttribute;
 
-    if (typeof exports === "object" || typeof exports === "function") {
-        //commonjs and nodejs support
-        exports.getNodesByType = getNodesByType;
-    } else if (typeof define === "object" || typeof define === "function") {
-        //requirejs support
-        define(function requirejs(require, exports) {
-            "use strict";
-            exports.getNodesByType = getNodesByType;
-            //worthless if block to appease RequireJS and JSLint
-            if (typeof require === "number") {
-                return require;
-            }
-            return exports.getNodesByType;
-        });
-    }
 }());
