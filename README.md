@@ -3,6 +3,8 @@ a custom DOM method to get nodes by node type
 
 When the code is run a method `getNodesByType` will be attached to all element node types in the current DOM tree and the document object.
 
+##Examples
+###getNodesByType
 Execute the method with either a numeric value or a node type name.
 
     document.getNodesByType(1);                          // get all element nodes in the document
@@ -12,7 +14,8 @@ Execute the method with either a numeric value or a node type name.
     item.getNodesByType("COMMENT_NODE");                 // get all child comment node types
     item.getNodesByType(1);                              // get all child element node types
 
-Updated with a new method: `getElementsByAttribute(name, value)`
+###getElementsByAttribute
+Updated with a new method: `getElementsByAttribute(name, value)`. Both the name and value arguments of `getElementsByAttribute` are optional.
 
     document.getElementsByAttribute("class", "segment"); // get all elements with a class attribute of value segment
     document.getElementsByAttribute("src", "");          // get all elements with a src attribute of any value
@@ -21,8 +24,7 @@ Updated with a new method: `getElementsByAttribute(name, value)`
     item.getElementsByAttribute("id");                   // get all child elements with an id attribute of any value
     item.getElementsByAttribute("", "purple_alien");     // get all child elements with any attribute whose value is purple_alien
 
-Both the name and value arguments of `getElementsByAttribute` are optional.
-
+##Node Types
 Here are the supported node types and their corresponding numeric values:
 
 * 0 - all nodes (non standard)
